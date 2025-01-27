@@ -38,6 +38,12 @@ return {
       lspconfig.lua_ls.setup({
         capabilities = capabilities,
       })
+      lspconfig.rust_analyzer.setup({
+        capabilities = capabilities,
+      })
+      lspconfig.zls.setup({
+        capabilities = capabilities,
+      })
 
       -- Helper function to find the Python interpreter dynamically
       local function find_python_venv()
