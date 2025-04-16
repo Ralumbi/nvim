@@ -1,61 +1,105 @@
-# NeoVim commands
+# Neovim Configuration: Key Mappings and Commands
 
-### Neotree
+This document outlines the key mappings and ex commands available in your Neovim configuration, based on the provided plugins and settings.
 
-<C-n> = open file tree
+## Key Mappings
+
+Your configuration defines several key mappings that trigger plugin functionality. These shortcuts are available in **normal mode** (`n`) unless otherwise specified.
+
+### Telescope (Fuzzy Finder)
+
+- `<leader>ff`: Find files (`:Telescope find_files`)
+- `<leader>fg`: Live grep (search through files) (`:Telescope live_grep`)
+- `<leader>fb`: List open buffers (`:Telescope buffers`)
+- `<leader>fh`: Search help tags (`:Telescope help_tags`)
+
+> **Note**: `<leader>` is typically set to `\` or `,` in Neovim. Check your configuration (e.g., `init.lua`) if you've remapped it.
+
+### NeoTree (File Explorer)
+
+- `<C-n>`: Toggle NeoTree file explorer with the filesystem revealed on the left (`:Neotree filesystem reveal left`)
+
+### LSP (Language Server Protocol)
+
+- `K`: Show hover documentation for the symbol under the cursor
+- `<leader>gd`: Go to the definition of the symbol under the cursor
+- `<leader>gr`: Find references to the symbol under the cursor
+- `<leader>ca`: Perform code actions (e.g., quick fixes, refactorings)
+- `<leader>gf`: Format the current buffer using LSP formatting
+
+### DAP (Debugging)
+
+- `<leader>dt`: Toggle a breakpoint at the current line
+- `<leader>dc`: Continue (or start) debugging
+
+### Completion (nvim-cmp)
+
+These mappings work in **insert mode** to control autocompletion:
+
+- `<C-b>`: Scroll documentation window up
+- `<C-f>`: Scroll documentation window down
+- `<C-Space>`: Trigger completion manually
+- `<C-e>`: Abort/close the completion menu
+- `<CR>` (Enter): Confirm the selected completion item
+
+## Ex Commands
+
+These are commands you can type after pressing `:` in normal mode. Many plugins provide commands that can be used directly or extended with arguments.
 
 ### Telescope
 
-<leader>ff = find files
-<leader>fg = live grep
-<leader>fb = buffer
-<leader>fh = help tags
+- `:Telescope <picker>`: Opens Telescope with a specific picker. Examples:
+  - `:Telescope find_files`: Find files in the current directory
+  - `:Telescope live_grep`: Search through files with live grep
+  - `:Telescope buffers`: List and switch between buffers
+  - `:Telescope help_tags`: Search Neovim help tags
+
+Run `:Telescope` alone to see available pickers or use **Tab completion** for options.
+
+### NeoTree
+
+- `:Neotree [args]`: Opens the NeoTree file explorer. Examples:
+  - `:Neotree filesystem reveal left`: Show the filesystem, revealing the current file
+  - `:Neotree buffers`: Show open buffers
+  - `:Neotree git_status`: Show Git status
+
+Use `:Neotree` without arguments for the default view or check `:help neo-tree` for more options.
 
 ### LSP
 
-shift+K = function/code information
-<leader>gd = definition
-<leader>gr = reference
-<leader>ca = code action
+- `:LspInfo`: Display information about active LSP clients
+- `:LspStart`: Start an LSP client (if stopped)
+- `:LspStop`: Stop an LSP client
+- `:LspRestart`: Restart an LSP client
 
-### NoneLS aka NullLS
+These commands are useful for managing LSP servers configured via `nvim-lspconfig`.
 
-<leader>gf = format file
+### DAP (Debugging)
 
-### Completions
+- `:DapContinue`: Continue (or start) the debugging session
+- `:DapStepOver`: Step over the next line
+- `:DapStepInto`: Step into a function call
+- `:DapStepOut`: Step out of the current function
+- `:DapToggleBreakpoint`: Toggle a breakpoint at the current line
 
-<C-b> = scroll docs -4
-<C-f> = scroll docs 4
-<C-Space> = complete
-<C-e> = abort
-<CR> = confirm
+Check `:help dap-commands` for additional DAP commands.
 
-### Debugger
+### Mason (LSP Server Management)
 
-<leader>dt = toggle breakpoint
-<leader>dc = continue
+- `:Mason`: Open the Mason UI to manage LSP servers, formatters, and linters
+- `:MasonInstall <package>`: Install a specific package (e.g., `:MasonInstall pyright`)
+- `:MasonUninstall <package>`: Uninstall a package
 
-### VIM commands to know
-* = select a word
-shift + N = backwards search
-n = forward search
-ciw = replace
-:s%/WordToChange/WordYouWantItToBe/g (/g is added as it means global, to change all in the file)
-                                     (/gc will prompt if you want to make the change per equal word it found)
-viw = visualy select the word + copy(yank) it
-:reg = seeing all yanked (copied words, lines)
-"[1,2,3,4,5,6,7,8,9,0,-,*,+,.,%,/] = the can use to use from the :reg like so: "5p or "%p where you use p to paste the :reg placed item
-selecting something via visual or visual-line you can set :reg place e.g. "6y so instead of the p we use y to yank(copy)
-where the "+ is the system wide copy
-:let @+=@% = copy your file name to the system clipboard
+Use `:Mason` to explore available tools and their installation status.
 
-q = macro start then you add a character after (mostly you do qq)
-assuming we did qq we will need to use @q to redo what we did
-we can also do 5@q to repeat our macro for the current and next 4 lines.
+### Treesitter
 
+- `:TSInstall <language>`: Install a language parser (e.g., `:TSInstall python`)
+- `:TSUpdate`: Update all installed language parsers
+- `:TSBufEnable <module>`: Enable a Treesitter module (e.g., `highlight`) for the current buffer
 
+Run `:TSInstallInfo` to see installed parsers or check `:help nvim-treesitter-commands` for more.
 
+### Colorscheme
 
-
-
-
+- `:colorscheme catppuccin`: Set the colorscheme to Catppuccin (already set by default in your config)
